@@ -14,7 +14,7 @@ const app = express();
 // ✅ CORS Configuration
 const allowedOrigins = [
   'http://localhost:5173', // Local frontend (Vite)
-  'https://mini-linkd-in-frontend-n-git-2d9a35-gayatri-chippawars-projects.vercel.app' // Vercel deployment
+  'https://mini-linkd-in-frontend-94au.vercel.app' // Vercel deployment
 ];
 
 app.use(cors({
@@ -45,3 +45,4 @@ app.use('/api/users', require('./routes/userRoutes'));
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
