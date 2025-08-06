@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-// Load environment variables
+// Load environment variables from .env
 dotenv.config();
 
 // Connect to MongoDB
@@ -11,9 +11,26 @@ connectDB();
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json()); // Parse JSON bodies
+// ✅ CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173', // Local frontend (Vite)
+  'https://mini-linkd-in-frontend-n-git-2d9a35-gayatri-chippawars-projects.vercel.app' // Vercel deployment
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+// Parse JSON request bodies
+app.use(express.json());
 
 // Test route
 app.get('/', (req, res) => {
